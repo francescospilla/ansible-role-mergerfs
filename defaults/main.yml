@@ -1,0 +1,10 @@
+---
+unions: []
+# Example union below, showing all available options (defaults are detailed in 'union_default_args'):
+# - mountpoint: '/mnt/mergerfs'             # default: N/A (required)
+#   sources: ['/mnt/disk1', '/mnt/disk2']   # default: N/A (required)
+#   opts: 'defaults,minfreespace=20G'       # default: "defaults,allow_other,direct_io,use_ino"
+
+# The default arguments for each union in 'unions'
+union_default_args:
+  opts: "defaults,allow_other,direct_io,use_ino"

@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: mergerfs
+      vars:
+        unions:
+          - mountpoint: /mnt/mergeunion
+            sources:
+              - /mnt/disk1
+              - /mnt/disk2
+              - /mnt/disk3
+              - /mnt/disk4

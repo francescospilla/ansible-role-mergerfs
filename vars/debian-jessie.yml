@@ -1,0 +1,4 @@
+---
+mergerfs_version: "2.24.1"
+architecture: "{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}"
+mergerfs_package_name: "mergerfs_{{ mergerfs_version }}.debian-jessie_{{ architecture }}.deb"

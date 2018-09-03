@@ -1,0 +1,32 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: mergerfs
+  author: Francesco Spilla
+  description: A simple role for installing mergerfs on supported platforms and manage mounting union filesystems.
+  issue_tracker_url: https://gitlab.com/francesco.spilla/ansible-role-mergerfs/issues
+  license: "license (MIT)"
+  min_ansible_version: 2.4
+  platforms:
+    - name: CentOS
+      versions:
+        - 7
+    - name: Fedora
+      versions:
+        - 27
+        - 28
+    - name: Debian
+      versions:
+        - jessie
+        - stretch
+    - name: Ubuntu
+      versions:
+        - trusty
+        - xenial
+        - bionic
+  galaxy_tags:
+    - fuse
+    - mount
+    - system
+    - volumes

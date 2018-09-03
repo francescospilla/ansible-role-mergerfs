@@ -1,0 +1,49 @@
+---
+- name: "Gather OS specific variables"
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution | lower }}-{{ ansible_distribution_version }}.yml"
+        - "{{ ansible_distribution | lower }}-{{ ansible_distribution_release }}.yml"
+        - "{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_distribution | lower }}.yml"
+        - "{{ ansible_os_family | lower }}.yml"
+    - paths:
+        - ../vars
+
+- name: "Check if mergerfs is installed"
+  command: "which mergerfs"
+  register: mergerfs_which
+  changed_when: false
+  failed_when: false
+
+- name: "Download mergerfs package from upstream"
+  get_url:
+    url: "{{ mergerfs_package_url }}"
+    dest: /tmp
+  when: mergerfs_which.rc != 0
+
+- name: "Install mergerfs (with apt)"
+  become: true
+  apt:
+    deb: "/tmp/{{ mergerfs_package_name }}"
+  when: mergerfs_which.rc != 0 and ansible_os_family == "Debian"
+
+- name: "Install mergerfs (with yum)"
+  become: true
+  yum:
+    name: "/tmp/{{ mergerfs_package_name }}"
+  when: mergerfs_which.rc != 0 and ansible_distribution == "CentOS"
+
+- name: "Install mergerfs (with dnf)"
+  become: true
+  dnf:
+    name: "/tmp/{{ mergerfs_package_name }}"
+  when: mergerfs_which.rc != 0 and ansible_distribution == "Fedora"
+
+- name: "Ensure mergerfs is installed"
+  become: true
+  package:
+    name: mergerfs
+    state: present
+  when: mergerfs_which.rc != 0
