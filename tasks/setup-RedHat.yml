@@ -1,0 +1,13 @@
+---
+- name: "Install prerequisite build tools"
+  become: true
+  yum:
+    name: "{{ item }}"
+  loop:
+    - rpm-build
+
+- name: "Install mergerfs from package URL"
+  become: true
+  yum:
+    name: "{{ mergerfs_package_url }}"
+    state: present

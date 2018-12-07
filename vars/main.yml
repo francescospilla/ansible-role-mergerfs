@@ -1,4 +1,4 @@
 ---
-mergerfs_version: "2.24.2"
+mergerfs_version: "2.25.1"
 mergerfs_base_url: "https://github.com/trapexit/mergerfs/releases/download"
 mergerfs_package_url: "{{ mergerfs_base_url }}/{{ mergerfs_version }}/{{ mergerfs_package_name }}"

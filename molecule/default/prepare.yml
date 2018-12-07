@@ -2,24 +2,14 @@
 - name: Prepare
   hosts: all
   become: true
+
+  pre_tasks:
+    - name: PREPARE | Update apt cache on Debian-based distros
+      apt: update_cache=yes cache_valid_time=600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
   tasks:
-    - name: PREPARE | Install aptitude on Debian-based distros
-      package:
-        name: aptitude
-        state: present
-      when: ansible_os_family == "Debian"
-
-    - name: PREPARE | Install libselinux-python on RedHat-based distros
-      package:
-        name: libselinux-python
-        state: present
-      when: ansible_os_family == "RedHat"
-
-    - name: PREPARE | Update to latest packages
-      package:
-        name: "*"
-        state: latest
-
     - name: PREPARE | Install 'parted' utility
       package:
         name: parted
