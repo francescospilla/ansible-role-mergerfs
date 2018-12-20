@@ -1,6 +1,9 @@
 Ansible Role: mergerfs
 =========
 
+[![Build Status](https://travis-ci.org/francescospilla/ansible-role-mergerfs.svg?branch=master)](https://travis-ci.org/francescospilla/ansible-role-mergerfs)
+
+
 A simple role for installing [_mergerfs_](https://github.com/trapexit/mergerfs) on supported platforms and manage mounting union filesystems.
 
 Supported platforms:
@@ -58,7 +61,7 @@ Example Playbook
 Testing
 -------
 
-This role is manually tested with [Molecule](https://molecule.readthedocs.io/en/latest/) and [Docker](https://www.docker.com/) (check the `molecule` directory for the details). Automated CI testing is in the works.
+This role is automatically tested with [Molecule](https://molecule.readthedocs.io/en/latest/), [Docker](https://www.docker.com/) (check the `molecule` directory for the details), and [Travis CI](https://travis-ci.org/).
 
 License
 -------
