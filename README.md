@@ -3,6 +3,13 @@ Ansible Role: mergerfs
 
 A simple role for installing [_mergerfs_](https://github.com/trapexit/mergerfs) on supported platforms and manage mounting union filesystems.
 
+Supported platforms:
+
+- Debian _(8, 9)_
+- Ubuntu _(14.04, 16.04, 18.04)_
+- Red Hat/CentOS _(6, 7)_
+- Fedora _(27, 29)_
+
 Requirements
 ------------
 
@@ -52,27 +59,6 @@ Testing
 -------
 
 This role is manually tested with [Molecule](https://molecule.readthedocs.io/en/latest/) and [Docker](https://www.docker.com/) (check the `molecule` directory for the details). Automated CI testing is in the works.
-
-This role is tested against the following platforms:
-
-````
-- name: CentOS
-  versions:
-    - 7
-- name: Fedora
-  versions:
-    - 27
-    - 29
-- name: Debian
-  versions:
-    - jessie
-    - stretch
-- name: Ubuntu
-  versions:
-    - trusty
-    - xenial
-    - bionic
-````
 
 License
 -------
