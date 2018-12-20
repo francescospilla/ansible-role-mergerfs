@@ -10,45 +10,14 @@
       changed_when: false
 
   tasks:
-    - name: PREPARE | Install 'parted' utility
-      package:
-        name: parted
-        state: present
-
-    - name: PREPARE | Configure disk partitions
-      parted:
-        device: /dev/sdb
-        label: gpt
-        number: "{{ item.number }}"
-        part_start: "{{ item.start }}"
-        part_end: "{{ item.end }}"
-        state: present
-      with_items:
-        - { number: 1, start: 0%, end: 15% }
-        - { number: 2, start: 30%, end: 55% }
-        - { number: 3, start: 56%, end: 58% }
-        - { number: 4, start: 70%, end: 73% }
-
-    - name: PREPARE | Format partitions
-      filesystem:
-        dev: "/dev/sdb{{ item }}"
-        fstype: ext4
-        opts: "-L Part_{{ item }}"
-      with_sequence: start=1 end=4
-
-    - name: PREPARE | Gathering facts
-      setup:
-
-    - name: PREPARE | Mount partitions
-      mount:
-        src: "/dev/sdb{{ item }}"
-        path: "/mnt/disk{{ item }}"
-        fstype: ext4
-        state: mounted
-      with_sequence: start=1 end=4
-
-    - name: PREPARE | Touch files on partitions
+    - name: PREPARE | Simulate partitions
       file:
-        path: "/mnt/disk{{ item }}/file-{{ item }}"
-        state: touch
+        path: "/mnt/disk{{ item }}"
+        state: directory
+      with_sequence: start=1 end=4
+
+    - name: PREPARE | Simulate files on partitions
+      copy:
+        dest: "/mnt/disk{{ item }}/file-{{ item }}"
+        content: "# This is the content of file-{{ item }} on disk{{ item }}"
       with_sequence: start=1 end=4

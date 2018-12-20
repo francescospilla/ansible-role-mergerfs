@@ -2,60 +2,16 @@
 dependency:
   name: galaxy
 driver:
-  name: vagrant
-  provider:
-    name: virtualbox
+  name: docker
 lint:
   name: yamllint
 platforms:
-  - name: ubuntu-14.04
-    box: bento/ubuntu-14.04
-    provider_raw_config_args:
-      - "customize ['createhd', '--filename', 'ubuntu-14.04-disk1.vdi', '--variant', 'Fixed', '--size', 1 * 32]"
-      - "customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'ubuntu-14.04-disk1.vdi']"
-  - name: ubuntu-16.04
-    box: bento/ubuntu-16.04
-    provider_raw_config_args:
-      - "customize ['createhd', '--filename', 'ubuntu-16.04-disk1.vdi', '--variant', 'Fixed', '--size', 1 * 32]"
-      - "customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'ubuntu-16.04-disk1.vdi']"
-  - name: ubuntu-18.04
-    box: bento/ubuntu-18.04
-    provider_raw_config_args:
-      - "customize ['createhd', '--filename', 'ubuntu-18.04-disk1.vdi', '--variant', 'Fixed', '--size', 1 * 32]"
-      - "customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'ubuntu-18.04-disk1.vdi']"
-  - name: debian-8
-    box: bento/debian-8
-    provider_raw_config_args:
-      - "customize ['createhd', '--filename', 'debian-8-disk1.vdi', '--variant', 'Fixed', '--size', 1 * 32]"
-      - "customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'debian-8-disk1.vdi']"
-  - name: debian-9
-    box: bento/debian-9
-    provider_raw_config_args:
-      - "customize ['createhd', '--filename', 'debian-9-disk1.vdi', '--variant', 'Fixed', '--size', 1 * 32]"
-      - "customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'debian-9-disk1.vdi']"
-  - name: centos-7
-    box: bento/centos-7
-    provider_raw_config_args:
-      - "customize ['createhd', '--filename', 'centos-7-disk1.vdi', '--variant', 'Fixed', '--size', 1 * 32]"
-      - "customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'centos-7-disk1.vdi']"
-  - name: fedora-27
-    box: bento/fedora-27
-    provider_raw_config_args:
-      - "customize ['createhd', '--filename', 'fedora-27-disk1.vdi', '--variant', 'Fixed', '--size', 1 * 32]"
-      - "customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'fedora-27-disk1.vdi']"
-    groups: ['fedora']
-  - name: fedora-28
-    box: bento/fedora-28
-    provider_raw_config_args:
-      - "customize ['createhd', '--filename', 'fedora-28-disk1.vdi', '--variant', 'Fixed', '--size', 1 * 32]"
-      - "customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'fedora-28-disk1.vdi']"
-    groups: ['fedora']
+  - name: "${MOLECULE_DISTRO:-centos7}"
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos7}-ansible:latest"
+    privileged: true
+    pre_build_image: true
 provisioner:
   name: ansible
-  inventory:
-    group_vars:
-      fedora:
-        ansible_python_interpreter: "/usr/bin/python3"
   lint:
     name: ansible-lint
 scenario:

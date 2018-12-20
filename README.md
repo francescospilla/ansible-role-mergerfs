@@ -51,7 +51,7 @@ Example Playbook
 Testing
 -------
 
-This role is manually tested with [Molecule](https://molecule.readthedocs.io/en/latest/) and [Vagrant](https://www.vagrantup.com/) (check the `molecule` directory for the details). Automated CI testing is in the works.
+This role is manually tested with [Molecule](https://molecule.readthedocs.io/en/latest/) and [Docker](https://www.docker.com/) (check the `molecule` directory for the details). Automated CI testing is in the works.
 
 This role is tested against the following platforms:
 
@@ -62,7 +62,7 @@ This role is tested against the following platforms:
 - name: Fedora
   versions:
     - 27
-    - 28
+    - 29
 - name: Debian
   versions:
     - jessie
